@@ -1,0 +1,342 @@
+version: '3.1'
+#-------------------------------Intents----------------------------------
+intents:
+- add_toppings
+- affirm
+- ask_icecream
+- bot_challenge
+- deny
+- goodbye
+- greet
+- mood_great
+- mood_unhappy
+- add_flavor
+- add_size
+- add_drinks
+- unhappy_request
+
+# HW2
+- need_recommendation
+- unhappy_recommend_request
+- unhappy_no_preference
+#-------------------------------Entities----------------------------------
+entities:
+- flavor
+- toppingsList
+- size
+- drinksList
+#-------------------------------Slots----------------------------------
+slots:
+  flavor:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: flavor
+
+  toppingsList:
+    type: list
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: toppingsList
+
+  need_toppings:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - intent: affirm
+      type: from_intent
+      value: true
+      conditions:
+      - active_loop: ice_cream_form
+        requested_slot: need_toppings
+    - intent: deny
+      type: from_intent
+      value: false
+      conditions:
+      - active_loop: ice_cream_form
+        requested_slot: need_toppings
+
+  size:
+    type: categorical
+    values:
+      - 6oz
+      - 8oz
+      - 12oz
+      - 24oz
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: size
+
+  need_drinks:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - intent: affirm
+      type: from_intent
+      value: true
+      conditions:
+      - active_loop: ice_cream_form
+        requested_slot: need_drinks
+    - intent: deny
+      type: from_intent
+      value: false
+      conditions:
+      - active_loop: ice_cream_form
+        requested_slot: need_drinks
+
+  drinksList:
+    type: list
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: drinksList
+
+  comfirm_submit:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - intent: affirm
+      type: from_intent
+      value: true
+      conditions:
+        - active_loop: submit_check_form
+          requested_slot: comfirm_submit
+    - intent: deny
+      type: from_intent
+      value: false
+      conditions:
+        - active_loop: submit_check_form
+          requested_slot: comfirm_submit
+
+  #--HW2---
+  love_fruit:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - intent: affirm
+      type: from_intent
+      value: true
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_fruit
+    - type: from_intent
+      value: false
+      intent: deny
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_fruit
+
+  love_mix:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - intent: affirm
+      type: from_intent
+      value: true
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_mix
+    - type: from_intent
+      value: false
+      intent: deny
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_mix
+
+  love_chocolate:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - intent: affirm
+      type: from_intent
+      value: true
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_chocolate
+    - type: from_intent
+      value: false
+      intent: deny
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_chocolate
+
+  love_special:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - intent: affirm
+      type: from_intent
+      value: true
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_special
+    - type: from_intent
+      value: false
+      intent: deny
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_special
+
+  love_coffee:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - intent: affirm
+      type: from_intent
+      value: true
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_coffee
+    - type: from_intent
+      value: false
+      intent: deny
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_coffee
+
+  love_salty:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - intent: affirm
+      type: from_intent
+      value: true
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_salty
+    - type: from_intent
+      value: false
+      intent: deny
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_salty
+
+  love_tea:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - intent: affirm
+      type: from_intent
+      value: true
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_tea
+    - type: from_intent
+      value: false
+      intent: deny
+      conditions:
+       - active_loop: flavor_feature_form
+         requested_slot: love_tea
+#-------------------------------Forms----------------------------------
+forms:
+  ice_cream_form:
+    required_slots:
+    - flavor
+    - need_toppings
+    - toppingsList
+    - size
+    - need_drinks
+    - drinksList
+
+  submit_check_form:
+    required_slots:
+    - comfirm_submit
+
+  unhappy_continue_form:
+    required_slots:
+    - continue_order
+
+# ---HW2---
+  flavor_feature_form:
+    required_slots:
+    - love_fruit
+    - love_mix
+    - love_chocolate
+    - love_special
+    - love_coffee
+    - love_salty
+    - love_tea
+#-------------------------------Responses----------------------------------
+responses:
+  utter_greet:
+  - text: Hey! Wellcome to Xinru's ice cream shop :) How are you?
+  utter_cheer_up:
+  - text: How about having a delicious ice cream? It may help to cheer you up!
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye, see you next time!
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+
+  # ask ice cream
+  utter_ask_flavor:
+  - text: What kind of flavor do you want?
+  utter_ask_size:
+  - text: Which size do you want? We have 6 oz / 8 oz / 12 oz / 24 oz.
+
+  utter_ask_need_toppings:
+    - text: Do you want any toppings?
+
+  utter_ask_toppingsList:
+    - text: What toppings do you want?
+
+  utter_ask_need_drinks:
+    - text: Any drink?
+  utter_ask_drinksList:
+    - text: what kind of drink?
+
+  # order submit
+  utter_submit:
+  - text: Order completed!
+  utter_ask_comfirm_submit:
+  - text: Do you want to submit your order?
+
+  # unhappy
+  utter_unhappy_request:
+  - text: I am sorry. I don't support this request right now, but you can ask the staffs in the shop for help!
+  utter_ask_continue_order:
+  - text: Do you want to continue ordering the ice cream?
+
+#---HW2---
+  utter_recommendation:
+  - text: Sure! Let's see what flavors you'll like.
+  - text: My pleasure! Let's start recommendation! I need to ask you a few questions first.
+  # record feature
+  utter_ask_love_fruit:
+  - text: Do you love fruit?
+  - text: How about fruit?
+  utter_ask_love_mix:
+  - text: Do you want to try a combination, like two flavors mixed together?
+  utter_ask_love_chocolate:
+  - text: Do you want chocolate in it?
+  utter_ask_love_special:
+  - text: Do you want to try our specialties?
+  utter_ask_love_coffee:
+  - text: Do you like coffee-flavored?
+  utter_ask_love_salty:
+  - text: Do you want to try a salty one?
+  utter_ask_love_tea:
+  - text: Do you like tea-flavored?
+  # unhappy
+  utter_unhappy_recommend_request:
+  - text: Sure! you can cancle this order and then ask me for a recommendation.
+  utter_unhappy_no_preference:
+  - text: That's ok. You can say yes and I will show you all flavors that you didn't exclude. You can select one of them after looking my recommendations :)
+  utter_ask_continue_recommendation:
+  - text: Do you want to continue?
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+actions:
+- action_reset_all_slots
+- validate_ice_cream_form
+- action_show_order
+- action_show_recommendation

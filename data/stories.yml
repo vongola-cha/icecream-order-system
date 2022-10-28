@@ -1,0 +1,194 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+#- story: sad path 1
+#  steps:
+#  - intent: greet
+#  - action: utter_greet
+#  - intent: mood_unhappy
+#  - action: utter_cheer_up
+- story: happy mood---ice cream order--unhappy request and continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: ask_icecream
+  - action: ice_cream_form
+  - active_loop: ice_cream_form
+  - intent: unhappy_request
+  - action: utter_unhappy_request
+  - action: utter_ask_continue_order
+  - intent: affirm
+  - action: ice_cream_form
+
+
+- story: unhappy mood---ice cream order--unhappy request and continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - intent: ask_icecream
+  - action: ice_cream_form
+  - active_loop: ice_cream_form
+  - intent: unhappy_request
+  - action: utter_unhappy_request
+  - action: utter_ask_continue_order
+  - intent: affirm
+  - action: ice_cream_form
+
+
+- story: ice cream order--unhappy request and not continue
+  steps:
+  - intent: ask_icecream
+  - action: ice_cream_form
+  - active_loop: ice_cream_form
+  - intent: unhappy_request
+  - action: utter_unhappy_request
+  - action: utter_ask_continue_order
+  - intent: deny
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_goodbye
+#-----------HW2-----------------
+- story: happy mood---ice cream order--unhappy request---ask if recommendation---continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: ask_icecream
+  - action: ice_cream_form
+  - active_loop: ice_cream_form
+  - intent: unhappy_recommend_request
+  - action: utter_unhappy_recommend_request
+  - action: utter_ask_continue_order
+  - intent: affirm
+  - action: ice_cream_form
+
+- story: happy mood---ice cream order--unhappy request---ask if recommendation---cancle order
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: ask_icecream
+  - action: ice_cream_form
+  - active_loop: ice_cream_form
+  - intent: unhappy_recommend_request
+  - action: utter_unhappy_recommend_request
+  - action: utter_ask_continue_order
+  - intent: deny
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_goodbye
+
+- story: happy mood---recommendation--unhappy request---no preference---continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: need_recommendation
+  - action: utter_recommendation
+  - action: flavor_feature_form
+  - active_loop: flavor_feature_form
+  - intent: unhappy_no_preference
+  - action: utter_unhappy_no_preference
+  - action: utter_ask_continue_recommendation
+  - intent: affirm
+  - action: flavor_feature_form
+
+- story: happy mood---recommendation--unhappy request---no preference---not continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: need_recommendation
+  - action: utter_recommendation
+  - action: flavor_feature_form
+  - active_loop: flavor_feature_form
+  - intent: unhappy_no_preference
+  - action: utter_unhappy_no_preference
+  - action: utter_ask_continue_recommendation
+  - intent: deny
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_goodbye
+
+#---start with unhappy mood-------
+- story: unhappy mood---ice cream order--unhappy request---ask if recommendation---continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - intent: ask_icecream
+  - action: ice_cream_form
+  - active_loop: ice_cream_form
+  - intent: unhappy_recommend_request
+  - action: utter_unhappy_recommend_request
+  - action: utter_ask_continue_order
+  - intent: affirm
+  - action: ice_cream_form
+
+- story: unhappy mood---ice cream order--unhappy request---ask if recommendation---cancle order
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - intent: ask_icecream
+  - action: ice_cream_form
+  - active_loop: ice_cream_form
+  - intent: unhappy_recommend_request
+  - action: utter_unhappy_recommend_request
+  - action: utter_ask_continue_order
+  - intent: deny
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_goodbye
+
+- story: unhappy mood---recommendation--unhappy request---no preference---continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - intent: need_recommendation
+  - action: utter_recommendation
+  - action: flavor_feature_form
+  - active_loop: flavor_feature_form
+  - intent: unhappy_no_preference
+  - action: utter_unhappy_no_preference
+  - action: utter_ask_continue_recommendation
+  - intent: affirm
+  - action: flavor_feature_form
+
+- story: unhappy mood---recommendation--unhappy request---no preference---not continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - intent: need_recommendation
+  - action: utter_recommendation
+  - action: flavor_feature_form
+  - active_loop: flavor_feature_form
+  - intent: unhappy_no_preference
+  - action: utter_unhappy_no_preference
+  - action: utter_ask_continue_recommendation
+  - intent: deny
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_goodbye
