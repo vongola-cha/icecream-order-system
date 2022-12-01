@@ -1,5 +1,13 @@
 # icecream-order-system
 Icecream order system and ice cream recommendation system.  Use RASA.
+# How to run Rasa
+
+rasa train
+
+rasa run actions
+
+rasa shell
+
 
 # Instructions 
 # Icecream order system
